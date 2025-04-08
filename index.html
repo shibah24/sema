@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dark/Light Mode Toggle</title>
+        <style>
+            :root {
+                --bg-color: #ffffff;
+                --text-color: #333333;
+                --toggle-bg: #f0f0f0;
+                --toggle-border: #cccccc;
+                --toggle-icon: #666666;
+                --transition-speed: 0.3s;
+            }
+    
+            /* Dark mode variables */
+            .dark-mode {
+                --bg-color: #1a1a1a;
+                --text-color: #f0f0f0;
+                --toggle-bg: #333333;
+                --toggle-border: #555555;
+                --toggle-icon: #dddddd;
+            }
+    
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+            }
+    
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+    
+            /* Toggle Switch Styles */
+            .toggle-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+            }
+    
+            .toggle-switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 30px;
+            }
+    
+            .toggle-switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+    
+            .toggle-slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--toggle-bg);
+                border: 1px solid var(--toggle-border);
+                border-radius: 30px;
+                transition: all var(--transition-speed) ease;
+            }
+    
+            .toggle-slider:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 3px;
+                background-color: var(--toggle-icon);
+                border-radius: 50%;
+                transition: all var(--transition-speed) ease;
+            }
+    
+            input:checked + .toggle-slider {
+                background-color: var(--toggle-bg);
+            }
+    
+            input:checked + .toggle-slider:before {
+                transform: translateX(28px);
+                background-color: var(--toggle-icon);
+            }
+    
+            .toggle-icons {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                pointer-events: none;
+                padding: 0 8px;
+                box-sizing: border-box;
+            }
+    
+            .toggle-icons i {
+                color: var(--toggle-icon);
+                font-size: 14px;
+                transition: color var(--transition-speed) ease;
+            }
+    
+            /* Content styles to demonstrate mode change */
+            .content {
+                margin-top: 60px;
+                padding: 20px;
+                border-radius: 8px;
+                background-color: rgba(0,0,0,0.05);
+                transition: background-color var(--transition-speed) ease;
+            }
+    
+            .dark-mode .content {
+                background-color: rgba(255,255,255,0.05);
+            }
+    
+            h1 {
+                margin-top: 0;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <div class="toggle-container">
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="toggle-slider"></span>
+                <div class="toggle-icons">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </label>
+        </div>
+    
+        <div class="container">
+            <div class="content">
+                <h1>Theme Toggle Demo</h1>
+                <p>Click the toggle switch in the top right corner to switch between dark and light modes.</p>
+                <p>The transition is smooth and all elements adapt to the selected theme.</p>
+            </div>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggle = document.getElementById('themeToggle');
+                const body = document.body;
+                
+                // Check for saved user preference or use system preference
+                const savedTheme = localStorage.getItem('theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                
+                
+                // Toggle theme when switch is clicked
+                themeToggle.addEventListener('change', function() {
+                    if (this.checked) {
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        body.classList.remove('dark-mode');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+                
+                // Watch for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    const newPrefersDark = e.matches;
+                    if (newPrefersDark) {
+                        body.classList.add('dark-mode');
+                        themeToggle.checked = true;
+                    } else {
+                        body.classList.remove('dark-mode');
+                        themeToggle.checked = false;
+                    }
+                    localStorage.setItem('theme', newPrefersDark ? 'dark' : 'light');
+                });
+            });
+        </script>
+    </body>
+    </html> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Through Academy - Innovative Online Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+
+    <!-- Glass Morphism Header -->
+    <header class="glass-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Break<span class="highlight">Through</span></span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    
+                </ul>
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Gradient -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Unlock Your</span>
+                    <span class="title-line highlight">Potential</span>
+                </h1>
+                <p class="hero-subtitle">Future-proof skills from industry leaders at your fingertips</p>
+                <div class="hero-cta">
+                    <a href="courses.html" class="btn btn-primary">
+                        <span>Explore Courses</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#" class="btn-play">
+                        <i class="fas fa-play"></i>
+                        <span>Watch Intro</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Happy student learning">
+                <div class="floating-badge">
+                    <i class="fas fa-medal"></i>
+                    <span>Top Rated Platform</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Learn What Excites You</h2>
+                <p class="section-subtitle">Browse our most popular categories</p>
+            </div>
+            <div class="categories-grid">
+                <a href="#" class="category-card tech">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Technology</h3>
+                    <p>42 Courses</p>
+                    <div class="hover-effect"></div>
+                </a>
+                <a href="#" class="category-card business">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Business</h3>
+                    <p>36 Courses</p>
+                    <div class="hover-effect"></div>
+                </a>
+                <a href="#" class="category-card design">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Design</h3>
+                    <p>28 Courses</p>
+                    <div class="hover-effect"></div>
+                </a>
+                <a href="#" class="category-card science">
+                    <div class="category-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3>Science</h3>
+                    <p>19 Courses</p>
+                    <div class="hover-effect"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How Break Through Works</h2>
+                <p class="section-subtitle">Get started in just a few simple steps</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Find Your Course</h3>
+                        <p>Browse our extensive catalog and find the perfect course for your goals.</p>
+                    </div>
+                    <div class="step-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Enroll & Learn</h3>
+                        <p>Get instant access to high-quality content and start learning at your own pace.</p>
+                    </div>
+                    <div class="step-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Get Certified</h3>
+                        <p>Earn a certificate to showcase your new skills to employers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Our Students Say</h2>
+                <p class="section-subtitle">Don't just take our word for it</p>
+            </div>
+            <div class="testimonial-carousel">
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">Break Through Academy completely transformed my career. The courses are practical and taught by real industry professionals.</p>
+                        <div class="student-info">
+                            <img src="shibah2.jfif" alt="ssematimba shibah">
+                            <div>
+                                <h4>ssematimba shibah</h4>
+                                <span>Web Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">The flexibility to learn at my own pace while working full-time was exactly what I needed to advance my skills.</p>
+                        <div class="student-info">
+                            <img src="aaa.jfif" alt="nabachwa esie">
+                            <div>
+                                <h4>nabachwa esie</h4>
+                                <span>Data Analyst</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Career?</h2>
+                <p>Join thousands of students who have accelerated their careers with Break Through Academy</p>
+                <div class="cta-buttons">
+                    <a href="courses.html" class="btn btn-primary">Browse Courses</a>
+                    <a href="contact.html" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col about">
+                    <div class="logo">
+                        <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                        <span>Break<span class="highlight">Through</span></span>
+                    </div>
+                    <p class="footer-about">Empowering the next generation of professionals through accessible, high-quality online education.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col contact-info">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Ave, Learning City</li>
+                        <li><i class="fas fa-phone"></i> +256706412098</li>
+                        <li><i class="fas fa-envelope"></i> hello@breakthrough.edu</li>
+                    </ul>
+                </div>
+                <div class="footer-col newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for course updates and learning tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Break Through Academy. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
